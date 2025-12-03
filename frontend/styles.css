@@ -1,0 +1,462 @@
+/* ======== BASE ======== */
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-size: 16px;
+  font-family: "Poppins", Arial, sans-serif;
+  background: #f4f6f6;
+}
+
+/* Contenedor general, ocupa toda la altura de la pantalla */
+.tp-main {
+  background-color: transparent;
+  font-size: 0.95rem;
+  height: 100vh;          /* alto de la pantalla */
+  padding: 20px 40px 20px;
+  margin: 0 auto;
+  max-width: 1400px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ======== HEADER ======== */
+
+.tp-header {
+  position: relative;
+  display: flex;
+  justify-content: center;   /* centramos logo + título */
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.tp-header-left {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.tp-logo {
+  width: 95px;
+  height: auto;
+}
+
+.tp-title {
+  font-size: 52px;
+  font-weight: 500;
+  color: #000;
+  margin: 0;
+}
+
+.tp-subtitle {
+  color: #25806f;
+  font-size: 20px;
+  margin: 4px 0 0;
+  font-weight: 600;
+}
+
+/* Botón ? arriba a la derecha del header */
+.tp-help-btn {
+  position: absolute;
+  right: 0;
+  top: 12px;
+  background-color: #58a190;
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+/* ======== LAYOUT IZQ / DER ======== */
+
+.tp-layout {
+  flex: 1;                 /* ocupa todo lo que queda de alto */
+  display: flex;
+  gap: 20px;
+  flex-wrap: nowrap;
+  align-items: stretch;
+}
+
+/* Panel izquierdo blanco */
+.tp-left-panel {
+  flex: 0 0 360px;         /* ancho fijo similar al mockup */
+  background-color: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+  padding: 20px 22px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Panel canvas (derecha) */
+.tp-canvas-wrapper {
+  flex: 1;
+  background-color: #f0f1f2;
+  border-radius: 16px;
+  padding: 18px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+}
+
+/* Canvas ocupa todo el alto del wrapper */
+.tp-canvas {
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+  background-color: #d1d1d1;
+  border: none;
+  display: block;
+}
+
+/* ======== INPUT + BUSCADOR ======== */
+
+.tp-input-label {
+  font-size: 16px;       /* más grande */
+  font-weight: 600;
+  margin-bottom: 8px;
+  display: block;
+}
+
+/* Contenedor buscador */
+.tp-search {
+  display: flex;
+  align-items: center;
+  background: #ffffff;
+  border-radius: 999px;
+  border: 1px solid #d2d7d6;
+  padding-left: 12px;
+}
+
+/* Input de secuencia */
+.tp-input {
+  text-transform: uppercase;
+  width: 100%;
+  padding: 9px 10px;
+  border: none;
+  border-radius: 999px;
+  font-size: 13px;
+  letter-spacing: 3px;
+  outline: none;
+}
+
+/* Placeholder */
+#aminoacid::placeholder,
+#aminoacid::-webkit-input-placeholder,
+#aminoacid::-moz-placeholder,
+#aminoacid:-ms-input-placeholder,
+#aminoacid::-ms-input-placeholder {
+  font-size: 12px;
+  color: #8a8a8a;
+}
+
+/* Botón lupa */
+.tp-search-btn {
+  border: none;
+  width: 40px;
+  height: 32px;
+  border-radius: 999px;
+  background-color: #2b8d70;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+/* ======== CONTROLES CÁMARA ======== */
+
+.tp-well {
+  margin: 16px 0;
+  width: 100%;
+  box-sizing: border-box;
+  background-color: transparent !important;
+  border: none !important;
+  box-shadow: none;
+  padding: 0;
+}
+
+.cam-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: nowrap;
+}
+
+.cam-title {
+  font-size: 16px;   /* más grande */
+  line-height: 1.2;
+}
+
+.tp-cam-switch {
+  display: inline-flex;
+  overflow: hidden;
+  border-radius: 999px;
+  background: #65bba7ff;
+}
+
+.tp-switch-btn {
+  border: none;
+  margin: 0;
+  padding: 6px 14px;
+  cursor: pointer;
+  background-image: none;
+  box-shadow: none;
+  color: #fff;
+  font-size: 14px;
+}
+
+/* Botón centrar */
+.tp-center-group {
+  margin-bottom: 0;
+  margin-top: 16px;
+}
+
+.tp-center-btn {
+  background-color: #58a190;
+  color: white;
+  border: none !important;
+  border-radius: 18px !important;
+  padding: 7px 14px;
+  width: 100%;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background-image: none !important;
+  box-shadow: none !important;
+  font-size: 0.98rem;
+}
+
+.tp-center-btn:hover {
+  filter: brightness(1.05);
+}
+
+/* ======== TABLA PROPIEDADES ======== */
+
+.tp-table-well {
+  flex: 1;                 /* el bloque de la tabla crece para llenar el panel */
+  display: flex;
+  flex-direction: column;
+}
+
+.tp-table-title {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.tp-table {
+  border-collapse: separate;
+  border-spacing: 0;
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  overflow: hidden;
+  margin-top: 4px;
+  font-size: 13px;
+}
+
+.tp-table thead {
+  background-color: #f9f9f9;
+}
+
+.tp-table th,
+.tp-table td {
+  padding: 8px;
+  text-align: left;
+}
+
+.tp-table th:first-child,
+.tp-table td:first-child {
+  border-right: 1px solid #ccc;
+}
+
+.tp-row-alt {
+  background-color: #b6e3d3;
+}
+
+/* ===== MODAL TYPE-PEPTIDE ===== */
+
+/* Fondo oscuro detrás del modal */
+.modal-backdrop.in {
+  background-color: #000;
+  opacity: 0.65;
+}
+
+/* Tamaño y posición del modal */
+#myModal .modal-dialog {
+  width: 60%;
+  max-width: 720px;
+  margin: 70px auto;
+}
+
+/* Tarjeta del modal con bordes redondeados */
+.tp-modal-content {
+  background-color: #ffffff;
+  border-radius: 18px;      /* BORDES REDONDEADOS EN TODA LA TARJETA */
+  border: none;
+  box-shadow: 0 12px 35px rgba(0,0,0,0.35);
+  overflow: hidden;         /* respeta el borde redondeado en el header */
+}
+
+/* Header verde (más claro) */
+.tp-modal-header {
+  background-color: #62a898;    /* verde tipo mockup */
+  color: #ffffff;
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+}
+
+/* Título alineado a la izquierda */
+.tp-modal-header .modal-title {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  flex: 1;                      /* ocupa todo y empuja la X a la derecha */
+  text-align: left;
+}
+
+/* Botón X alineado a la derecha y centrado verticalmente */
+.tp-modal-close {
+  background: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font-size: 20px;
+  line-height: 1;
+  color: #e8f3ef;               /* un poco más claro que el texto */
+}
+
+.tp-modal-close span {
+  display: block;
+}
+
+.tp-modal-close:hover {
+  color: #ffffff;
+}
+
+/* Cuerpo del modal */
+.tp-modal-body {
+  padding: 22px 26px 24px;
+  color: #333;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+/* Títulos dentro del modal */
+.tp-modal-body h3,
+.tp-modal-body h4 {
+  color: #2b8d70;
+  font-weight: 600;
+}
+
+.tp-modal-body h3 {
+  font-size: 18px;
+  margin-top: 10px;
+  margin-bottom: 6px;
+}
+
+.tp-modal-body h4 {
+  font-size: 15px;
+  margin-top: 18px;
+  margin-bottom: 6px;
+}
+
+/* Líneas separadoras suaves */
+.tp-modal-body hr {
+  margin: 10px 0 12px;
+  border-top: 1px solid #e0e0e0;
+}
+
+/* Márgen superior del bloque contenedor */
+.tp-modal-row {
+  margin-top: 20px;
+}
+
+/* Responsivo */
+@media (max-width: 1024px){
+  #myModal .modal-dialog {
+    width: 80%;
+  }
+}
+
+@media (max-width: 768px){
+  #myModal .modal-dialog {
+    width: 95%;
+    margin: 40px auto;
+  }
+}
+
+@media (max-width: 576px){
+  .cam-controls{
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  #camSwitch{
+    margin-top: 8px;
+  }
+}
+
+/* ======== RESPONSIVE LAYOUT (visualizador debajo) ======== */
+
+/* Tablet y móviles: panel izquierdo arriba, visualizador abajo */
+@media (max-width: 992px) {
+
+  /* Que la página pueda crecer en altura */
+  .tp-main {
+    height: auto;
+    padding: 16px;
+  }
+
+  /* De columna en vez de lado a lado */
+  .tp-layout {
+    flex-direction: column;
+    gap: 16px;
+    align-items: stretch;
+  }
+
+  /* Panel izquierdo ocupa todo el ancho */
+  .tp-left-panel {
+    flex: 0 0 auto;
+    width: 100%;
+    max-width: none;
+  }
+
+  /* El canvas va debajo y le damos una altura fija razonable */
+  .tp-canvas-wrapper {
+    flex: 0 0 auto;
+    width: 100%;
+    height: 50vh;      /* mitad de la pantalla aprox. */
+    min-height: 320px; /* por si la pantalla es muy bajita */
+  }
+}
+
+/* Ajustes extra para móviles muy pequeños */
+@media (max-width: 576px) {
+  .tp-main {
+    padding: 12px;
+  }
+
+  /* Controles de cámara en columna (ya lo tenías, lo mantengo) */
+  .cam-controls{
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  #camSwitch{
+    margin-top: 8px;
+  }
+}

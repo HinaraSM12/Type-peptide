@@ -1,0 +1,50 @@
+version: "3.9"
+
+services:
+  api:
+    build:
+      context: ./api
+    container_name: type-peptide-api
+    env_file:
+      - ./api/.env
+    environment:
+      # Puedes sobreescribir por variables de entorno si quieres
+      PORT: ${PORT:-3000}
+
+      # FASTA dentro del contenedor (se monta desde ./api/sequences)
+      FASTA_PATH: ${FASTA_PATH:-/app/sequences/BD_FINAL.fasta}
+      FORCE_FASTA_ONLY: ${FORCE_FASTA_ONLY:-false}
+
+      # Si más adelante usas MySQL, los podrías reusar aquí:
+      DB_CONNECTION: ${DB_CONNECTION:-mysql}
+      DB_HOST: ${DB_HOST:-host.docker.internal}
+      DB_PORT: ${DB_PORT:-3306}
+      DB_DATABASE: ${DB_DATABASE:-prospeccionydise}
+      DB_USERNAME: ${DB_USERNAME:-prospeccionydise}
+      DB_PASSWORD: ${DB_PASSWORD:-biomole1520}
+      TABLE_NAME: ${TABLE_NAME:-}
+      HEADER_COLUMN: ${HEADER_COLUMN:-}
+      SEQUENCE_COLUMN: ${SEQUENCE_COLUMN:-}
+    ports:
+      - "4010:3000"          # API: http://localhost:4010
+    volumes:
+      - ./api/sequences:/app/sequences:ro  # BD_FINAL.fasta se monta aquí
+    networks:
+      - tp_net
+
+  frontend:
+    image: nginx:alpine
+    container_name: type-peptide-frontend
+    volumes:
+      - ./frontend:/usr/share/nginx/html:ro
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      - api
+    ports:
+      - "9091:80"            # Front: http://localhost:9091
+    networks:
+      - tp_net
+
+networks:
+  tp_net:
+    driver: bridge

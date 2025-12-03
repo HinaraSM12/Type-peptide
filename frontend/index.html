@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Type-Peptide</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <link rel="stylesheet" href="styles.css" />
+
+  <!-- FontAwesome (icono ?) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <!-- Bootstrap (para el modal) -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+</head>
+
+<body>
+  <main class="tp-main container-fluid">
+    <div class="row">
+
+      <!-- HEADER -->
+      <div class="tp-header">
+        <div class="tp-header-left">
+          <!-- Pon aquí tu logo -->
+          <img src="assets/img/logo-typepeptide.png" alt="Logo Type-Peptide" class="tp-logo">
+
+          <div class="tp-title-block">
+            <h1 class="tp-title">Type-Peptide</h1>
+            <p class="tp-subtitle">Tu visualizador de péptidos</p>
+          </div>
+        </div>
+
+        <button type="button" class="btn tp-help-btn" data-toggle="modal" data-target="#myModal">
+          <i class="fa fa-question" aria-hidden="true"></i>
+        </button>
+      </div>
+
+      <!-- LAYOUT PRINCIPAL -->
+      <div class="tp-layout">
+
+        <!-- PANEL IZQUIERDO -->
+        <section class="tp-left-panel">
+
+          <!-- INPUT -->
+          <div class="tp-input-wrapper">
+            <form action="#" class="tp-form" onsubmit="return false;">
+              <div class="form-group">
+                <label for="aminoacid" class="tp-input-label">Ingrese una secuencia:</label>
+
+                <div class="tp-search">
+                  <input id="aminoacid" class="tp-input" type="text" maxlength="200" placeholder="SECUENCIA A BUSCAR" />
+                  <button type="button" class="tp-search-btn">
+                    <i class="fa fa-search" aria-hidden="true"></i>
+                  </button>
+                </div>
+
+                <span id="typePrompt"></span>
+              </div>
+            </form>
+          </div>
+
+          <!-- CONTROLES CÁMARA -->
+          <div class="well tp-well">
+            <div class="cam-controls">
+              <span class="cam-title"><strong>Controles de la cámara:</strong></span>
+
+              <div id="camSwitch" class="tp-cam-switch">
+                <button id="btnLock" type="button" class="tp-switch-btn">
+                  <i class="fa fa-lock" aria-hidden="true"></i>
+                </button>
+                <button id="btnUnlock" type="button" class="tp-switch-btn">
+                  <i class="fa fa-unlock" aria-hidden="true"></i>
+                </button>
+              </div>
+            </div>
+
+            <div id="mode-group-center" class="btn-group btn-group-justified tp-center-group" data-toggle="buttons">
+              <label class="btn tp-center-btn">
+                <input type="radio" name="mode" id="look"> Centrar
+              </label>
+            </div>
+          </div>
+
+          <!-- TABLA PROPIEDADES -->
+          <div class="well tp-well tp-table-well">
+            <span class="tp-table-title">Propiedades del péptido:</span>
+            <table class="table table-responsive tp-table">
+              <thead>
+                <tr>
+                  <th>Propiedad</th>
+                  <th>Valor</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th class="tp-row-alt">No. AAs</th>
+                  <td class="noaa_th tp-row-alt">0</td>
+                </tr>
+                <tr>
+                  <th>Carga Neta a pH Neutro</th>
+                  <td class="charge_th">0</td>
+                </tr>
+                <tr>
+                  <th class="tp-row-alt">Punto Isoeléctrico</th>
+                  <td class="isoelectricPoint_th tp-row-alt">0</td>
+                </tr>
+                <tr>
+                  <th>% de aminoácidos hidrofóbicos</th>
+                  <td class="hidrofobic_th">0</td>
+                </tr>
+                <tr>
+                  <th class="tp-row-alt">Índice de Boman</th>
+                  <td class="boman_th tp-row-alt">0</td>
+                </tr>
+                <tr>
+                  <th>Momento hidrofóbico relativo</th>
+                  <td class="momem_th">0</td>
+                </tr>
+                <tr>
+                  <th class="tp-row-alt">Índice de Wimley White</th>
+                  <td class="wimley_th tp-row-alt">0</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- CANVAS DERECHA -->
+        <section id="canvas" class="tp-canvas-wrapper">
+          <canvas id="myCanvas" class="tp-canvas"></canvas>
+        </section>
+      </div>
+    </div>
+
+    <!-- MODAL -->
+    <div class="row tp-modal-row">
+      <div class="col-sm-1 col-md-1">
+        <div id="myModal" class="modal fade" tabindex="-1" role="dialog">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content tp-modal-content">
+              <div class="modal-header tp-modal-header">
+                <h4 class="modal-title">Type Peptide</h4>
+                <button type="button" class="tp-modal-close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body tp-modal-body">
+                <p>
+                  <strong>Type Peptide</strong> es una herramienta pedagógica para el diseño y optimización de
+                  péptidos antimicrobianos basados en sus propiedades fisicoquímicas.
+                </p>
+                <p>
+                  La aplicación ha sido desarrollada por la línea de interacciones moleculares del grupo
+                  <em>Biología Funcional</em>, asociado a la Facultad de Ciencias de la Universidad Nacional
+                  de Colombia – Sede Medellín.
+                </p>
+                <p>
+                  A partir de una cadena de aminoácidos, la aplicación calcula algunas de sus propiedades
+                  fisicoquímicas y genera una representación gráfica de una α-hélice teórica.
+                </p>
+                <hr>
+                <h3>Cómo usarla</h3>
+                <p>La aplicación está compuesta por 3 secciones:</p>
+                <hr>
+                <h4>1. Ingreso de datos</h4>
+                <p>
+                  Ubicada en la parte izquierda. <strong>Para iniciar a utilizar la aplicación</strong>, ingrese
+                  caracteres en el campo “Escribir aquí la secuencia”. Solo se reciben caracteres que correspondan
+                  al código de una letra de los 20 aminoácidos más comunes.
+                </p>
+                <hr>
+                <h4>2. Representación gráfica</h4>
+                <p>
+                  Ubicada a la derecha; muestra la cadena peptídica como una α-hélice.<br>
+                  Para <strong>ver la cadena lateral</strong> y su posición, haga clic sobre el aminoácido
+                  (clic de nuevo para ocultar).<br>
+                  Para <strong>manejar la cámara</strong> use clic izquierdo/derecho y arrastre para rotar
+                  o desplazar.
+                </p>
+                <hr>
+                <h4>3. Información</h4>
+                <p>Se calculan características del péptido ingresado y se muestran en la tabla.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+  </main>
+
+  <!-- jQuery + Bootstrap JS (para el modal) -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+  <!-- Libs Three.js -->
+  <script src="assets/js/three.min.js"></script>
+  <script src="assets/js/TrackballControls.js"></script>
+  <script src="assets/js/Detector.js"></script>
+  <script src="assets/js/colorHandler.js"></script>
+
+  <!-- Lógica de negocio -->
+  <script src="peptide-utils.js"></script>
+  <script src="app.js"></script>
+</body>
+
+</html>
