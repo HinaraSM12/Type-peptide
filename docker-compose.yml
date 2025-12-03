@@ -8,14 +8,15 @@ services:
     env_file:
       - ./api/.env
     environment:
-      # Puedes sobreescribir por variables de entorno si quieres
-      PORT: ${PORT:-3000}
+      # Puerto interno donde escucha la API
+      PORT: 8052
+      NODE_ENV: production
 
-      # FASTA dentro del contenedor (se monta desde ./api/sequences)
-      FASTA_PATH: ${FASTA_PATH:-/app/sequences/BD_FINAL.fasta}
-      FORCE_FASTA_ONLY: ${FORCE_FASTA_ONLY:-false}
+      # Ruta REAL del FASTA dentro del contenedor
+      FASTA_PATH: /app/sequences/BD_FINAL.fasta
+      FORCE_FASTA_ONLY: "false"
 
-      # Si más adelante usas MySQL, los podrías reusar aquí:
+      # Si usas BD, los dejas listos aquí (puedes ajustarlos luego)
       DB_CONNECTION: ${DB_CONNECTION:-mysql}
       DB_HOST: ${DB_HOST:-host.docker.internal}
       DB_PORT: ${DB_PORT:-3306}
@@ -25,12 +26,24 @@ services:
       TABLE_NAME: ${TABLE_NAME:-}
       HEADER_COLUMN: ${HEADER_COLUMN:-}
       SEQUENCE_COLUMN: ${SEQUENCE_COLUMN:-}
-    ports:
-      - "4020:3000"          # API: http://localhost:4020
+
+    # Sólo se expone dentro de la red de Docker (no publica en el host)
+    expose:
+      - "8052"
+
     volumes:
-      - ./api/sequences:/app/sequences:ro  # BD_FINAL.fasta se monta aquí
+      - ./api/sequences:/app/sequences:ro
+
     networks:
-      - tp_net
+      - inverpep_default
+
+    restart: unless-stopped
+
+    healthcheck:
+      test: ["CMD", "sh", "-c", "wget -qO- http://localhost:8052/health || exit 1"]
+      interval: 30s
+      timeout: 5s
+      retries: 5
 
   frontend:
     image: nginx:alpine
@@ -40,11 +53,23 @@ services:
       - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
     depends_on:
       - api
-    ports:
-      - "9092:80"            # Front: http://localhost:9092
+
+    # No publicamos puerto en el host, sólo lo "expose" para nginx-proxy
+    expose:
+      - "80"
+
+    # Variables para nginx-proxy + letsencrypt
+    environment:
+      VIRTUAL_HOST: type-peptide.medellin.unal.edu.co
+      LETSENCRYPT_HOST: type-peptide.medellin.unal.edu.co
+      LETSENCRYPT_EMAIL: peptools_med@unal.edu.co
+      VIRTUAL_PORT: 80
+
     networks:
-      - tp_net
+      - inverpep_default
+
+    restart: unless-stopped
 
 networks:
-  tp_net:
-    driver: bridge
+  inverpep_default:
+    external: true
